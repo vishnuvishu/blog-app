@@ -1,0 +1,83 @@
+<h1> Welcome to Article Page</h1>
+
+<% if @articles.empty? %>
+<h5>Empty</h5>
+<% else %>
+
+
+<h3>Section 1 - Published</h3>
+<%@published_articles = Article.where("published=?",true) %>
+<table>
+	<thead>
+		<tr>
+			<td>Sl</td>
+			<td>Title</td>
+			<td>Body</td>
+			<td>Published</td>
+			<td>Published-Date</td>
+			<td>Action</td>
+		</tr>
+
+	</thead>
+
+	<tbody>
+
+		<% @published_articles.each_with_index do |article, index| %>
+		<tr>
+		<td><%= index + 1 %></td>
+		<td><%= article.title %></td>
+		<td><%= article.body %></td>
+		<td><%= article.published %></td>
+		<td><%= article.published_date %></td>
+		<td><%= link_to "Show", article_path(article) %> </td>
+		<% if user_signed_in? %>
+		<td><%= link_to "Delete", article_path(article), method: :delete, data:{confirm: "are you sure ?"}%></td>
+     <% end %>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
+<% end %>
+
+
+<h3>Unpublished</h3>
+
+<%@unpublished_articles = Article.where("published=?",false) %>
+<table>
+	<thead>
+		<tr>
+			<td>Sl</td>
+			<td>Title</td>
+			<td>Body</td>
+			<td>Published</td>
+			<td>Published-Date</td>
+			<td>Action</td>
+		</tr>
+
+	</thead>
+
+	<tbody> 
+
+		<% @unpublished_articles.each_with_index do |article, index| %>
+		<tr>
+		<td><%= index + 1 %></td>
+		<td><%= article.title %></td>
+		<td><%= article.body %></td>
+		<td><%= article.published %></td>
+		<td><%= article.published_date %></td>
+		<td><%= link_to "Show", article_path(article) %> </td>
+		<% if can? :update, article %>
+		<td><%= link_to "Edit", edit_article_path(article) %></td>
+         <% end %>
+		<% if can? :destroy, article %>
+		<td><%= link_to "Delete", articles, method: :delete, data:{confirm: "are you sure ?"}%></td>
+         <% end %>
+		</tr>
+		<% end %>
+	</tbody>
+
+</table>
+<% if can? :create, Article.new %>
+<%= link_to "Add new article", new_article_path %>
+<% end %>

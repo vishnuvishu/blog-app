@@ -1,0 +1,19 @@
+<h2> Edit new article</h2>
+
+<%= form_for @article do |f| %>
+
+	<%= f.label :title %>
+	<%= f.text_field :title %></br>
+
+	<%= f.label :body %>
+	<%= f.text_area :body %></br>
+
+	<%= f.label :published %>
+	<%= f.check_box :published %> </br>
+
+	<%= f.label :published_date %>
+	<%= f.date_select :published_date %> </br>
+
+	<%= f.submit "Submit" %>
+
+<% end %>

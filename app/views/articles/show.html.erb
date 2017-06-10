@@ -1,0 +1,21 @@
+<h2><%= @article.title %></h2>
+<p><%= @article.body %></p>
+<p><%= @article.published %></p>
+<p><%= @article.published_date %></p>
+<% if user_signed_in? %>
+<%= link_to "Edit", edit_article_path %>
+<%= form_for(@article) do |c|%>
+<%= c.label :comment %>
+   <%= c.text_area :body %>
+   <%= c.submit "Submit" %>
+  <% end %>
+<% end %>
+
+
+<p>
+	<strong> Categories : </strong>
+	<% @article.categories.each do |category| %>
+	<%= link_to category.name, category %>
+	<% end %>
+</p>
+

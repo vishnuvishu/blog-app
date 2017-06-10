@@ -1,0 +1,2 @@
+<%= f.label :select_categories %>
+	<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %> </br>
